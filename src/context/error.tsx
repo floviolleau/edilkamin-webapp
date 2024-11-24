@@ -1,35 +1,41 @@
-import { FunctionComponent, ReactNode, createContext, useState } from "react";
+'use client'
+
+import {createContext, FunctionComponent, ReactNode, useContext, useState} from 'react';
 
 interface ErrorType {
-  title?: string;
-  body: string;
+    title?: string;
+    body: string;
 }
+
 interface ErrorContextType {
-  errors: ErrorType[];
-  setErrors: (errors: ErrorType[]) => void;
-  addError: (error: ErrorType) => void;
+    errors: ErrorType[];
+    setErrors: (errors: ErrorType[]) => void;
+    addError: (error: ErrorType) => void;
 }
 
 const defaultErrors: ErrorType[] = [];
 const errorsContextDefault = {
-  errors: defaultErrors,
-  setErrors: () => {},
-  addError: () => {},
+    errors: defaultErrors,
+    setErrors: () => {},
+    addError: () => {},
 };
 
 const ErrorContext = createContext<ErrorContextType>(errorsContextDefault);
 
 const ErrorContextProvider: FunctionComponent<{ children: ReactNode }> = ({
-  children,
+    children,
 }) => {
-  const [errors, setErrors] = useState<ErrorType[]>(defaultErrors);
-  const addError = (error: ErrorType) => setErrors([...errors, error]);
-  return (
-    <ErrorContext.Provider value={{ errors, setErrors, addError }}>
-      {children}
-    </ErrorContext.Provider>
-  );
+    const [errors, setErrors] = useState<ErrorType[]>(defaultErrors);
+    const addError = (error: ErrorType) => setErrors([...errors, error]);
+
+    return (
+        <ErrorContext.Provider value={{errors, setErrors, addError}}>
+            {children}
+        </ErrorContext.Provider>
+    );
 };
 
-export type { ErrorType };
-export { ErrorContext, ErrorContextProvider };
+const useErrorContext = () => useContext(ErrorContext);
+
+export type {ErrorType};
+export {ErrorContextProvider, useErrorContext};

@@ -1,37 +1,35 @@
-import {
-  FunctionComponent,
-  ReactNode,
-  createContext,
-  useEffect,
-  useState,
-} from "react";
-import { getTokenLocalStorage } from "../utils/helpers";
+'use client'
+
+import {createContext, FunctionComponent, ReactNode, useContext, useEffect, useState} from 'react';
+import {getTokenLocalStorage} from '../utils/helpers';
 
 interface TokenContextType {
-  token: string | null | undefined;
-  setToken: (token: string | null) => void;
+    token: string | null | undefined;
+    setToken: (token: string | null) => void;
 }
 
 const defaultToken = undefined;
 const tokenContextDefault = {
-  token: defaultToken,
-  setToken: () => {},
+    token: defaultToken,
+    setToken: () => {},
 };
 
 const TokenContext = createContext<TokenContextType>(tokenContextDefault);
 
 const TokenContextProvider: FunctionComponent<{ children: ReactNode }> = ({
-  children,
+    children,
 }) => {
-  const [token, setToken] = useState<string | null | undefined>();
+    const [token, setToken] = useState<string | null | undefined>();
 
-  useEffect(() => setToken(getTokenLocalStorage()), []);
+    useEffect(() => setToken(getTokenLocalStorage()), []);
 
-  return (
-    <TokenContext.Provider value={{ token, setToken }}>
-      {children}
-    </TokenContext.Provider>
-  );
+    return (
+        <TokenContext.Provider value={{token, setToken}}>
+            {children}
+        </TokenContext.Provider>
+    );
 };
 
-export { TokenContext, TokenContextProvider };
+const useTokenContext = () => useContext(TokenContext);
+
+export {useTokenContext, TokenContextProvider};

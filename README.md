@@ -13,6 +13,9 @@ This is built on top of the [edilkamin.js](https://github.com/AndreMiras/edilkam
 ## Run
 
 ```sh
+corepack enable
+corepack activate
+yarn install
 yarn dev
 ```
 

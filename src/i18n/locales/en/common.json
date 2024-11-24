@@ -1,4 +1,6 @@
 {
+    "title": "Open Edilkamin",
+    "description": "Open Edilkamin for controlling pellets stoves",
     "about": "About",
     "error": "Error",
     "invalid_mac_address": "Invalid MAC address.",

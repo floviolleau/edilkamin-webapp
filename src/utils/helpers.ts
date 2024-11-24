@@ -1,17 +1,18 @@
-const fireplaceRegex = /[0-9a-f]{12}/g;
+const fireplaceRegex = /^((([a-f0-9]{2}:){5})|(([a-f0-9]{2}-){5}))[a-f0-9]{2}$/ig;
 
 const isValidFireplace = (fireplace: string) => fireplaceRegex.test(fireplace);
 
-const tokenLocalStorageKey = "edilkamin-token";
+const tokenLocalStorageKey = 'edilkamin-token';
+// const deviceInfosLocalStorageKey = 'edilkamin-device-infos';
 
 const getTokenLocalStorage = (): string | null =>
-  localStorage.getItem(tokenLocalStorageKey);
+  global.localStorage.getItem(tokenLocalStorageKey);
 
 const setTokenLocalStorage = (token: string): void =>
-  localStorage.setItem(tokenLocalStorageKey, token);
+  global.localStorage.setItem(tokenLocalStorageKey, token);
 
 const removeTokenLocalStorage = (): void =>
-  localStorage.removeItem(tokenLocalStorageKey);
+  global.localStorage.removeItem(tokenLocalStorageKey);
 
 export {
   isValidFireplace,

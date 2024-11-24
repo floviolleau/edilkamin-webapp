@@ -1,9 +1,10 @@
-import {Button} from "react-bootstrap";
-import {useLogout} from "../utils/hooks";
-import {useTranslation} from "next-i18next";
+import React from 'react';
+import {Button} from 'react-bootstrap';
+import {useLogout} from '../utils/hooks';
+import {useTranslation} from '../i18n';
 
-const Logout = (): JSX.Element => {
-    const [t] = useTranslation('common');
+const Logout = async ({locale}: {locale: string}) => {
+    const {t} = await useTranslation(locale, 'common');
 
     // TODO: ideally hit the backend to invalidate the token too
     const logout = useLogout();

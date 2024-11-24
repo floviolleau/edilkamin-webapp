@@ -1,24 +1,24 @@
-import { useContext } from "react";
-import { ErrorContext } from "../context/error";
-import Error from "./Error";
+'use client'
 
-const Errors = (): JSX.Element => {
-  const { errors, setErrors } = useContext(ErrorContext);
-  const removeIndex = (index: number) =>
-    setErrors(errors.filter((error, i) => i !== index));
+import {useErrorContext} from '../context/error';
+import {AlertError} from './AlertError';
 
-  return (
-    <>
-      {errors.map(({ title, body }, index) => (
-        <Error
-          key={body}
-          title={title}
-          body={body}
-          onClose={() => removeIndex(index)}
-        />
-      ))}
-    </>
-  );
-};
+export const Errors = ({locale}: {locale: string}): JSX.Element => {
+    const {errors, setErrors} = useErrorContext();
+    const removeIndex = (index: number) =>
+        setErrors(errors.filter((error, i) => i !== index));
 
-export default Errors;
+    return (
+        <>
+            {errors.map(({title, body}, index) => (
+                <AlertError
+                    key={body}
+                    title={title}
+                    body={body}
+                    onClose={() => removeIndex(index)}
+                    locale={locale}
+                />
+            ))}
+        </>
+    );
+}
